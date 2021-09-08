@@ -5,7 +5,7 @@ const SET_USER = 'SET_USER';
 const SET_THEME = 'SET_THEME';
 const SET_LANGUAGE = 'SET_LANGUAGE';
 
-export default {
+export {
   TOGGLE_LOADER,
   HIDE_LOADER,
   USER_LOGOUT,
@@ -13,3 +13,4 @@ export default {
   SET_THEME,
   SET_LANGUAGE,
 };
+

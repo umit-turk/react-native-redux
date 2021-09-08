@@ -14,12 +14,25 @@ import Input from '../components/Input/Input';
 import {images, colors, fonts} from '../constants';
 import Button from '../components/Button/Button';
 import CheckBox from '../components/CheckBox/CheckBox';
-import DeviceInfo from 'react-native-device-info'
+import DeviceInfo from 'react-native-device-info';
+import {useDispatch, useSelector} from 'react-redux';
+import {hideLoader, setUser, toggleLoader} from '../redux/system/action';
+import I18n from '../i18n'
 
 export default function LoginScreen() {
+
+  const usernameText = I18n.t('username');
+  const passwordText = I18n.t('password');
+  const remembermeText = I18n.t('rememberMe');
+  const loginText = I18n.t('login');
+
+  const dispatch = useDispatch();
+  const userInfo = useSelector(state => console.log("userInfo",state.system));
+  const loading = useSelector(state => state.system.loading)
+
   const [pageData, setPageData] = useState({
-    username: '',
-    password: '',
+    username: 'umit',
+    password: '1234',
   });
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -32,7 +45,21 @@ export default function LoginScreen() {
     setPageData(page => ({...page, [key]: value}));
   };
 
-  const versionNumber = DeviceInfo.getVersion()
+  const versionNumber = DeviceInfo.getVersion();
+
+
+  const onLogin = () => {
+    dispatch(toggleLoader())
+    dispatch(
+      setUser({
+        name: 'yasar',
+        surname: 'turk',
+        token : "fdsnnfdsknlew"
+      })
+    );
+    dispatch(hideLoader())
+  };
+  console.log("loading", loading)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -43,7 +70,7 @@ export default function LoginScreen() {
         <View style={{marginVertical: 15}}>
           <Input
             onChangeText={text => onChangeText('username', text)}
-            placeHolder="Kullanıcı adı"
+            placeHolder={usernameText}
             value={pageData.username}
             icon={'mail-outline'}
             color={colors.cf5f5fb}
@@ -53,7 +80,7 @@ export default function LoginScreen() {
         <View style={{marginVertical: 15}}>
           <Input
             onChangeText={text => onChangeText('password', text)}
-            placeHolder="Şifre"
+            placeHolder={passwordText}
             value={pageData.password}
             isHidden
             icon={'lock-outline'}
@@ -70,15 +97,15 @@ export default function LoginScreen() {
             style={{marginRight: 10}}
             style={styles.input}
           />
-          <Text style={styles.rememberMeText}>Beni Hatırla</Text>
+          <Text style={styles.rememberMeText}>{remembermeText}</Text>
         </View>
         <View style={{marginVertical: 15}}>
-          <Button onPress={() => alert('giriş yap')} text="Giriş yap" />
+          <Button onPress={() => onLogin()} text={loginText} />
         </View>
       </View>
-    <View style={styles.versionNumberContainer}>
-      <Text style={styles.versionNumberText}>v {versionNumber}</Text>
-    </View>
+      <View style={styles.versionNumberContainer}>
+        <Text style={styles.versionNumberText}>v {versionNumber}</Text>
+      </View>
     </SafeAreaView>
   );
 }
@@ -98,20 +125,25 @@ const styles = StyleSheet.create({
   },
   logo: {width: 300, height: 100, resizeMode: 'contain'},
   logoContainer: {marginBottom: 25, alignItems: 'center'},
-  rememberMeContainer: {marginVertical: 15, flexDirection: "row", alignItems: "center", margin: 17},
+  rememberMeContainer: {
+    marginVertical: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 17,
+  },
   rememberMeText: {
     fontSize: fonts.f12,
-    fontWeight: "500",
+    fontWeight: '500',
     color: colors.cFFFFFF,
-    marginLeft: 5
+    marginLeft: 5,
   },
   versionNumberText: {
     fontSize: fonts.f12,
-    color: colors.cFFFFFF
+    color: colors.cFFFFFF,
   },
   versionNumberContainer: {
     width: '100%',
-    alignItems: "center",
+    alignItems: 'center',
     paddingBottom: 10,
-  }
+  },
 });
