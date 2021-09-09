@@ -15,6 +15,7 @@ import {images, colors, fonts} from '../constants';
 import Button from '../components/Button/Button';
 import CheckBox from '../components/CheckBox/CheckBox';
 import DeviceInfo from 'react-native-device-info';
+import CustomView from '../components/CustomView';
 import {useDispatch, useSelector} from 'react-redux';
 import {hideLoader, setUser, toggleLoader} from '../redux/system/action';
 import I18n from '../i18n'
@@ -54,7 +55,14 @@ export default function LoginScreen() {
       setUser({
         name: 'yasar',
         surname: 'turk',
-        token : "fdsnnfdsknlew"
+        displayName: "umit turk",
+        token : "fdsnnfdsknlew",
+        company: "artiiki",
+        mobile: "392018392",
+        title: "mobile developer",
+        managerDisplayName: "umit turk",
+        unitName: "Mobil geliştirici",
+        profilPic: "https://picsum.photos/id/237/200/300"
       })
     );
     dispatch(hideLoader())
@@ -62,12 +70,12 @@ export default function LoginScreen() {
   console.log("loading", loading)
 
   return (
-    <SafeAreaView style={styles.container}>
+    <CustomView style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.logoContainer}>
           <Image source={images.logo} style={styles.logo} />
         </View>
-        <View style={{marginVertical: 15}}>
+        <View style={styles.inputContainer}>
           <Input
             onChangeText={text => onChangeText('username', text)}
             placeHolder={usernameText}
@@ -77,7 +85,7 @@ export default function LoginScreen() {
             placeHolderTextColor={colors.cf5f5fb}
           />
         </View>
-        <View style={{marginVertical: 15}}>
+        <View style={styles.inputContainer}>
           <Input
             onChangeText={text => onChangeText('password', text)}
             placeHolder={passwordText}
@@ -106,23 +114,23 @@ export default function LoginScreen() {
       <View style={styles.versionNumberContainer}>
         <Text style={styles.versionNumberText}>v {versionNumber}</Text>
       </View>
-    </SafeAreaView>
+      
+    </CustomView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.backgroundColor,
   },
   innerContainer: {
     flex: 1,
-    backgroundColor: colors.backgroundColor,
     justifyContent: 'center',
   },
   input: {
     marginVertical: 5,
   },
+  inputContainer: {margin: 15},
   logo: {width: 300, height: 100, resizeMode: 'contain'},
   logoContainer: {marginBottom: 25, alignItems: 'center'},
   rememberMeContainer: {

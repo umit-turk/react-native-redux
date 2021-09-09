@@ -1,8 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from '../screens/LoginScreen';
-import HomeScreen from '../screens/HomeScreen';
 import {useSelector} from 'react-redux';
+import HomeScreen from './TabNavigation';
 
 export const AppScreens = {
   login: 'Login',
@@ -17,7 +17,7 @@ export default function StackNavigator() {
   const initialRouteName = isLogin ? AppScreens.home : AppScreens.login;
 
   return (
-    <Stack.Navigator initialRouteName={initialRouteName}>
+    <Stack.Navigator initialRouteName={initialRouteName} screenOptions={{headerShown: false}}>
       {isLogin === false ? (
         <Stack.Screen
           name={AppScreens.login}

@@ -114,7 +114,6 @@
 				4F10CBEC747E8EB191236401 /* Pods-proje-projeTests.debug.xcconfig */,
 				A42C237E75D88D55FCBE6647 /* Pods-proje-projeTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

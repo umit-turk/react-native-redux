@@ -4,11 +4,24 @@ import { I18nManager } from 'react-native';
 import en from './en';
 import tr from './tr';
 
+
+const translations = {
+    tr,
+    en,
+};
 const locales = RnLocalize.getLocales(); //cihazın tercih edilen dil listesini getiriyor.
+
+I18n.locale = locales[0].languageTag;
+
+export const changeLanguage = (language) => {
+    console.log("changeLanguage i18n", language )
+    I18n.locale = language
+}
+
 
 console.log("locales",locales);
 
-I18n.locale = locales[0].languageTag;
+
 
 export const isRtl = locales[0].isRTL;
 
@@ -18,10 +31,7 @@ I18n.fallbacks = true; // belirtilen dile ait kayıt yoksa bir sonraki dilden ç
 
 I18n.locales.no = "tr"; // istenilen dil bulunmadığında türkçeyi kullan
 
-I18n.translations = {
-    tr,
-    en,
-};
+I18n.translations = translations;
 
 export default I18n; 
 

@@ -13,6 +13,7 @@ export default function Input({
   placeHolderTextColor,
   style,
   color,
+  ...props
 }) {
   const [showPass, setShowPass] = useState(false);
 
@@ -26,6 +27,7 @@ export default function Input({
         placeholderTextColor={colors.white[50]}
         secureTextEntry={isHidden ? !showPass : false}
         style={[styles.text, {color}]}
+        {...props}
       />
       {isHidden && (
         <IconCommunity
@@ -47,13 +49,13 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#97a1be',
-    marginHorizontal: 17,
   },
   text: {
     marginTop: 3,
     fontSize: fonts.f13,
     letterSpacing: 1,
     fontWeight: '600',
-    width: '80%'
+    width: '80%',
+    color: colors.cFFFFFF
   },
 });
