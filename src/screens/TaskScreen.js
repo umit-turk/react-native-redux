@@ -7,7 +7,7 @@ import ListItem from '../components/ListItem/ListItem';
 import {colors} from '../constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../components/Header';
-
+import I18n from '../i18n';
 const storageKey = 'todo';
 
  function TaskScreen() {
@@ -81,7 +81,7 @@ const storageKey = 'todo';
 
   return (
     <CustomView style={styles.container}>
-        <Header title="task"/>
+        <Header title={I18n.t("task")}/>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={todo}

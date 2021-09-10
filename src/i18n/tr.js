@@ -5,5 +5,12 @@ export default {
     login: "Giriş Yap",
     profile: "Profil",
     home: "Anasayfa",
-    task: "Görevlerim"
+    task: "Görevlerim",
+    title: "Başlık",
+    company: "Şirket Adı",
+    mobile: "Telefon",
+    manager: "Yönetici Bilgisi",
+    unit: "Birim",
+    themeChoose: "Tema Seçimi",
+    languageChoose: "Dil Seçimi",
 }

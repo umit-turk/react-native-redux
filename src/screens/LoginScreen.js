@@ -17,23 +17,26 @@ import CheckBox from '../components/CheckBox/CheckBox';
 import DeviceInfo from 'react-native-device-info';
 import CustomView from '../components/CustomView';
 import {useDispatch, useSelector} from 'react-redux';
+import I18n, { changeLanguage } from '../i18n';
 import {hideLoader, setUser, toggleLoader} from '../redux/system/action';
-import I18n from '../i18n'
+import axios from '../utils/axios';
+import apiConfig from '../config/apiConfig';
 
 export default function LoginScreen() {
-
   const usernameText = I18n.t('username');
   const passwordText = I18n.t('password');
   const remembermeText = I18n.t('rememberMe');
   const loginText = I18n.t('login');
 
   const dispatch = useDispatch();
-  const userInfo = useSelector(state => console.log("userInfo",state.system));
-  const loading = useSelector(state => state.system.loading)
+  const userInfo = useSelector(state => console.log('userInfo', state.system));
+  const loading = useSelector(state => state.system.loading);
+
+  const language = useSelector(state => state.system.language)
 
   const [pageData, setPageData] = useState({
-    username: 'umit',
-    password: '1234',
+    username: 'SHBTFURKAN',
+    password: 'SAHABT_MANAGER',
   });
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -48,26 +51,20 @@ export default function LoginScreen() {
 
   const versionNumber = DeviceInfo.getVersion();
 
-
   const onLogin = () => {
-    dispatch(toggleLoader())
-    dispatch(
-      setUser({
-        name: 'yasar',
-        surname: 'turk',
-        displayName: "umit turk",
-        token : "fdsnnfdsknlew",
-        company: "artiiki",
-        mobile: "392018392",
-        title: "mobile developer",
-        managerDisplayName: "umit turk",
-        unitName: "Mobil geliştirici",
-        profilPic: "https://picsum.photos/id/237/200/300"
-      })
-    );
-    dispatch(hideLoader())
+    try {
+      dispatch(toggleLoader());
+
+      axios.post(apiConfig.prefixes.login, pageData).then(response => {
+        changeLanguage(language);
+        dispatch(setUser(response.data.data));
+      });
+    } catch (error) {
+    } finally {
+      dispatch(hideLoader());
+    }
   };
-  console.log("loading", loading)
+  console.log('loading', loading);
 
   return (
     <CustomView style={styles.container}>
@@ -107,14 +104,13 @@ export default function LoginScreen() {
           />
           <Text style={styles.rememberMeText}>{remembermeText}</Text>
         </View>
-        <View style={{marginVertical: 15}}>
+        <View style={{marginVertical: 30, marginHorizontal: 15}}>
           <Button onPress={() => onLogin()} text={loginText} />
         </View>
       </View>
       <View style={styles.versionNumberContainer}>
         <Text style={styles.versionNumberText}>v {versionNumber}</Text>
       </View>
-      
     </CustomView>
   );
 }
